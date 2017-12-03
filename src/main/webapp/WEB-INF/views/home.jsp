@@ -7,6 +7,6 @@
 <title>Home</title>
 </head>
 <body>
-<h1>Welcome to Share Space<rich:accordion></rich:accordion></h1>
+<h1>Welcome to Share Space<rich:accordion></h1>
 </body>
 </html>

@@ -10,12 +10,31 @@
             http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     
     <!-- 激活@Controller模式 -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven>
+    	 <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+			 <!-- 让@ResponseBody注解自动转换json -->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+         </mvc:message-converters>
+    </mvc:annotation-driven>
+  
     <!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 需要更改 -->
-    <context:component-scan base-package="com.xin.web" />
+    <context:component-scan base-package="com.xin" />
+    <!-- 静态资源访问 -->
+    <mvc:resources mapping="/pages/**" location="/WEB-INF/pages/" />
+    <!-- 直接跳转 -->
+    <mvc:view-controller path="/access" view-name="/login"/>
    
-     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
 
+	
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
             <value>/WEB-INF/views/</value>
